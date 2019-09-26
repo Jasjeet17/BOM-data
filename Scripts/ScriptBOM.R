@@ -36,5 +36,3 @@ Tidy_BOM_stations
 write_csv(Tidy_BOM_stations, "results/Tidy_BOM_stations.csv")
 new_BOM_data <- full_join(Tidy_BOM_stations, BOM_data)
 
-
-
