@@ -28,11 +28,13 @@ BOM_stations
 
 BOM_stations <- read_csv("data/BOM_stations.csv") #read data set1
 BOM_data <- read_csv("data/BOM_data.csv") #read data set 2
-Tidy_BOM_stations <- BOM_stations %>% #assign a variable
-gather (station_ID, value, -info) %>% #gather column headings to single column
-spread (info, value) %>% 
-mutate (station_ID = as.numeric(station_ID))
-Tidy_BOM_stations
-write_csv(Tidy_BOM_stations, "results/Tidy_BOM_stations.csv")
-new_BOM_data <- full_join(Tidy_BOM_stations, BOM_data)
+stations_very_long <- BOM_stations %>%
+gather (station_number, values, -info)
+stations_tidy <- stations_very_long %>%
+  spread(info, values)
+stations_tidy
+stations_tidy_numeric <- mutate (stations_tidy, station_number = as.numeric (station_number))
+stations_tidy_numeric
+BOM_combined_2 <- left_join(BOM_data_separated, stations_tidy)
 
+BOM_combined_2
